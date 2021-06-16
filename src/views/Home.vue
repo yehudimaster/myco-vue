@@ -1,18 +1,80 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h3>Mis paneles</h3>
+    <div class="boards-collection">
+      <input
+        type="text"
+        placeholder="Añadir un nuevo panel"
+        v-model="boardName"
+        @keyup.enter="add()"
+      />
+
+      <board-card
+        v-for="(board,index) in boards"
+        :key="index"
+        :name="board.name"
+        :id="board.id"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import BoardCard from '@/components/BoardCard'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  components: { BoardCard },
+  data: function () {
+    return {
+      boardName: '',
+      boards: [
+        { id: 1, name: 'Tareas' },
+        { id: 2, name: 'Formación' }
+      ]
+    }
+  },
+  methods: {
+    add () {
+      this.boards.push({ name: this.boardName })
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  h3 {
+    text-align: left;
+    margin: 1.4rem;
+  }
+
+  .boards-collection {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top:1rem;
+  }
+
+  input {
+    box-sizing:border-box;
+    background-color:#546E7A;
+    border:2px solid #546E7A;
+    border-radius: 3px;
+    font-size:1.1rem;
+    outline:0;
+    padding:.5rem;
+    transition: all 600ms ease;
+
+      &:focus,
+      &:active {
+        background-color:white;
+        color:#546E7A;
+      }
+
+      &::placeholder {
+        color:white;
+      }
+  }
+</style>
