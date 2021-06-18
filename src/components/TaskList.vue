@@ -29,7 +29,8 @@ export default {
   },
   methods: {
     add () {
-      // TODO: Implement event. No vamos a emitir este evento hacie arriba para utilizar VUEX y su gestión de estados
+      // TODO: Implement event. No vamos a emitir este evento hacie arriba para utilizar VUEX un contenedor de estados.
+      // VUEX desde la vista, desde los componentes, ejecutamos acciones, pueden ser asíncronas, y una vez ejecutadas las promesas se hace el dispatch de "mutaciones" y estas modifican el estado.
     }
   }
 }
