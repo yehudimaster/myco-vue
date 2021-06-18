@@ -1,5 +1,6 @@
 import { createStore, createLogger } from 'vuex'
 import state from './state'
+import mutations from './mutations'
 const debug = process.env.NODE_ENV !== 'production'
 
 export default createStore({
@@ -8,5 +9,5 @@ export default createStore({
   state: state,
   getters: {},
   actions: {},
-  mutations: {}
+  mutations: mutations
 })
