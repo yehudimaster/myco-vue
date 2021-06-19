@@ -23,10 +23,10 @@ export default {
     state.fetchingData = true
     state.error = null
   },
-  [types.FETCH_LISTS_SUCCESS] (state, { lists }) {
+  [types.FETCH_LISTS_SUCCESS] (state, { list }) {
     state.fetchingData = false
     state.error = null
-    state.lists = { ...lists }
+    state.lists = { ...list }
   },
   [types.FETCH_LISTS_FAILURE] (state, { error }) {
     state.fetchingData = false
@@ -40,7 +40,7 @@ export default {
   [types.FETCH_TASKS_SUCCESS] (state, { tasks }) {
     state.fetchingData = false
     state.error = null
-    state.tasks = { ...tasks }
+    state.tasks = Object.assign({}, state.tasks, tasks)
   },
   [types.FETCH_TASKS_FAILURE] (state, { error }) {
     state.fetchingData = false

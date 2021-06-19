@@ -5,27 +5,23 @@ export default {
   // Fetch vía ajax de los paneles (boards) del usuario
   fetchBoards ({ commit }, { user }) {
     commit(types.FETCH_BOARDS_REQUEST)
-    var a = API.getBoardsByUser(user)
-    a.then(snap => commit(types.FETCH_BOARDS_SUCCESS, { board: snap.val() }))
-    a.catch(error => commit(types.FETCH_BOARDS_FAILURE, { error }))
+    API.getBoardsByUser(user)
+      .then(snap => commit(types.FETCH_BOARDS_SUCCESS, { board: snap.val() }))
+      .catch(error => commit(types.FETCH_BOARDS_FAILURE, { error }))
   },
   // Fetch vía ajax de las listas del usuario
   fetchLists ({ commit }, { board }) {
     commit(types.FETCH_LISTS_REQUEST)
-    API.getListsFromBoard(board).then(snap =>
-      commit(types.FETCH_LISTS_SUCCESS, { list: snap.val() }).catch(error =>
-        commit(types.FETCH_BOARDS_FAILURE, { error })
-      )
-    )
+    API.getListsFromBoard(board)
+      .then(snap => commit(types.FETCH_LISTS_SUCCESS, { list: snap.val() }))
+      .catch(error => commit(types.FETCH_BOARDS_FAILURE, { error }))
   },
   // Fetch vía ajax de las tareas de una lista
   fetchTasks ({ commit }, { list }) {
     commit(types.FETCH_TASKS_REQUEST)
-    API.getTasksFromList(list).then(snap =>
-      commit(types.FETCH_TASKS_SUCCESS, { task: snap.val() }).catch(error =>
-        commit(types.FETCH_TASKS_FAILURE, { error })
-      )
-    )
+    API.getTasksFromList(list)
+      .then(snap => commit(types.FETCH_TASKS_SUCCESS, { tasks: snap.val() }))
+      .catch(error => commit(types.FETCH_TASKS_FAILURE, { error }))
   },
   // Aadir un nuevo panel
   addBoard ({ commit }, { name }) {
