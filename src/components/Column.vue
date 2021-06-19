@@ -1,17 +1,15 @@
 <template>
-    <section>
-        <header>
-            <h3>{{ name }}</h3>
-        </header>
-        <task-list
-            :listId="listId"
-            :tasks="taskList">
-        </task-list>
-    </section>
+  <section>
+    <header>
+      <h3>{{ name }}</h3>
+    </header>
+    <task-list :listId="listId" :tasks="tasksList"> </task-list>
+  </section>
 </template>
 
 <script>
-import TaskList from './TaskList'
+import { mapGetters, mapActions } from 'vuex'
+import TaskList from '@/components/TaskList'
 export default {
   name: 'column',
   components: { TaskList },
@@ -19,50 +17,47 @@ export default {
     listId: String,
     name: String
   },
-  data () {
-    return {
-      taskList: [
-        { id: '1', title: 'Aprender Vue', completed: false },
-        { id: '2', title: 'Aprender VueX', completed: false }
-      ]
+  computed: {
+    ...mapGetters(['getTasksByList']),
+    tasksList () {
+      return this.getTasksByList(this.listId)
     }
+  },
+  methods: {
+    ...mapActions(['fetchTasks'])
+  },
+  created () {
+    this.fetchTasks({ list: this.listId })
   }
 }
 </script>
 
 <style lang="scss" scoped>
-    section {
-        box-sizing: border-box;
-        background-color:#ECEff1;
-        border-radius: 3px;
-        border-radius: 3px;
-        box-shadow: 0 0 0 0.5px rgba(49,49,93,.03),
-                    0 2px 5px 0 rgba(49,49,93,.1),
-                    0 1px 2px 0 rgba(0,0,0,.08);
-        margin: 1rem;
-        padding: 1rem;
-        width:100%;
-
-        @media screen and (min-width: 600px) {
-            width: calc(50% - 2rem - 2px);
-        }
-
-        @media screen and (min-width: 1024px) {
-            width: calc(33% - 2rem - 2px);
-        }
-
-        @media screen and (min-width: 1200px) {
-            width: calc(25% - 2rem - 2px);
-        }
-    }
-
-    header {
-        color:#37474f;
-        margin:0;
-        padding-bottom:1rem
-    }
-
-    h3 {
-        margin:0;
-    }
+section {
+  box-sizing: border-box;
+  background-color: #eceff1;
+  border-radius: 3px;
+  box-shadow: 0 0 0 0.5px rgba(49, 49, 93, 0.03),
+    0 2px 5px 0 rgba(49, 49, 93, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  margin: 1rem;
+  padding: 1rem;
+  width: 100%;
+  @media screen and (min-width: 600px) {
+    width: calc(50% - 2rem - 2px);
+  }
+  @media screen and (min-width: 1024px) {
+    width: calc(33% - 2rem - 2px);
+  }
+  @media screen and (min-width: 1200px) {
+    width: calc(25% - 2rem - 2px);
+  }
+}
+header {
+  color: #37474f;
+  margin: 0;
+  padding-bottom: 1rem;
+}
+h3 {
+  margin: 0;
+}
 </style>

@@ -4,8 +4,10 @@
       v-for="(task, index) in tasks"
       :key="index"
       :class="{ completed: task.completed }"
+      @click="markAsCompleted({ task })"
+      @dblclick="deleteTask({ taskId: task.id })"
     >
-      {{ task.title }}
+      {{ task.name }}
     </li>
     <input
       type="text"
@@ -17,9 +19,11 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'task-list',
   props: {
+    listId: String,
     tasks: Array
   },
   data () {
@@ -28,9 +32,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addTask', 'markAsCompleted', 'deleteTask']),
     add () {
-      // TODO: Implement event. No vamos a emitir este evento hacie arriba para utilizar VUEX un contenedor de estados.
-      // VUEX desde la vista, desde los componentes, ejecutamos acciones, pueden ser asíncronas, y una vez ejecutadas las promesas se hace el dispatch de "mutaciones" y estas modifican el estado.
+      this.addTask({ list: this.listId, name: this.title })
+      this.title = ''
     }
   }
 }
