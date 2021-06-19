@@ -7,7 +7,7 @@ const tasksRef = db.ref('/tasks')
 export default {
   // New panel
   getBoardsByUser (userId = 1) {
-    const query = this.getBoardsByUser.orderByChild('owner').equalTo(userId)
+    const query = boardsRef.orderByChild('owner').equalTo(userId)
     return query.once('value')
   },
   postBoard (name, owner = 1) {

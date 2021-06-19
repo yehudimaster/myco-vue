@@ -5,11 +5,9 @@ export default {
   // Fetch vía ajax de los paneles (boards) del usuario
   fetchBoards ({ commit }, { user }) {
     commit(types.FETCH_BOARDS_REQUEST)
-    API.getBoardsByUser(user).then(snap =>
-      commit(types.FETCH_BOARDS_SUCCESS, { board: snap.val() }).catch(error =>
-        commit(types.FETCH_BOARDS_FAILURE, { error })
-      )
-    )
+    var a = API.getBoardsByUser(user)
+    a.then(snap => commit(types.FETCH_BOARDS_SUCCESS, { board: snap.val() }))
+    a.catch(error => commit(types.FETCH_BOARDS_FAILURE, { error }))
   },
   // Fetch vía ajax de las listas del usuario
   fetchLists ({ commit }, { board }) {

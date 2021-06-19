@@ -9,10 +9,10 @@ export default {
     state.fetchingData = true
     state.error = null
   },
-  [types.FETCH_BOARDS_SUCCESS] (state, { boards }) {
+  [types.FETCH_BOARDS_SUCCESS] (state, { board }) {
     state.fetchingData = false
     state.error = null
-    state.boards = { ...boards } // Añadimos nuevos boards a los existentes (...boards)
+    state.boards = { ...board } // Añadimos nuevos boards a los existentes (...boards)
   },
   [types.FETCH_BOARDS_FAILURE] (state, { error }) {
     state.fetchingData = false
@@ -60,8 +60,7 @@ export default {
   },
   // Borrar una task
   [types.DELETE_TASK] (state, { taskId }) {
-    state.tasks = Object.values(state.tasks)
-      .filter(task => task.id !== taskId)
+    state.tasks = Object.values(state.tasks).filter(task => task.id !== taskId)
   },
   // Cambiar el completado
   [types.MARK_AS_COMPLETED] (state, { task }) {
