@@ -1,4 +1,4 @@
-//FireBASE Config
+// FireBASE Config
 export default {
   apiKey: '',
   authDomain: '',

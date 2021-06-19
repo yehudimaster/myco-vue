@@ -1,8 +1,8 @@
 import { db } from './firebase'
 
-const boardsRef = db.refs('/boards')
-const listsRef = db.refs('/lists')
-const tasksRef = db.refs('/tasks')
+const boardsRef = db.ref('/boards')
+const listsRef = db.ref('/lists')
+const tasksRef = db.ref('/tasks')
 
 export default {
   // New panel
@@ -18,7 +18,7 @@ export default {
       .set(board)
       .then(() => board)
   },
-  getListFromBoard (boardId) {
+  getListsFromBoard (boardId) {
     const query = listsRef.orderByChild('board').equalTo(boardId)
     return query.once('value')
   },
@@ -34,7 +34,7 @@ export default {
     const query = tasksRef.orderByChild('list').equalTo(listId)
     return query.once('value')
   },
-  postTasks (list, name) {
+  postTask (list, name) {
     const id = tasksRef.push().key
     const completed = false
     const task = { id, name, list, completed }
